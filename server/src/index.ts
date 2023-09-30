@@ -11,11 +11,10 @@ const server = app.listen('8080')
 const ws = new WebSocket.Server({server})
 
 ws.on('connection', (client: WebSocket)=> {
+  console.log("connection")
   client.on('message', (message:Buffer) => {
-    ws.clients.forEach((user):void => {
-      if(user !== client)
-        user.send(message.toString())
+      console.log(message)
     })
 })
-})
+
 
