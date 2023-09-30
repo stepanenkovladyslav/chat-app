@@ -1,15 +1,21 @@
 import WebSocket = require("ws")
+import express from "express"
+import router from "./routes/router"
 
-const server = new WebSocket.Server({ port: 8080 });
+const app = express(); 
 
-server.on("connection", (server: WebSocket) => {
-  console.log('connected')
-  server.on("message", (data: string) => {
-    console.log(data)
-  })
+app.use(router)
+
+const server = app.listen('8080')
+
+const ws = new WebSocket.Server({server})
+
+ws.on('connection', (client: WebSocket)=> {
+  client.on('message', (message:Buffer) => {
+    ws.clients.forEach((user):void => {
+      if(user !== client)
+        user.send(message.toString())
+    })
+})
 })
 
-
-server.on("error", (error: Error) => {
-  console.log(error)
-})
