@@ -1,6 +1,7 @@
 import WebSocket = require("ws")
 import express from "express"
 import router from "./routes/router"
+import { messageHandling } from "./messageHandling";
 
 const app = express(); 
 
@@ -10,11 +11,5 @@ const server = app.listen('8080')
 
 const ws = new WebSocket.Server({server})
 
-ws.on('connection', (client: WebSocket)=> {
-  console.log("connection")
-  client.on('message', (message:Buffer) => {
-      console.log(message)
-    })
-})
-
+ws.on('connection', messageHandling)
 

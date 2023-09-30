@@ -1,4 +1,6 @@
 /server/node_modules
 /server/dist
 /client/node_modules
-
+.DS_Store
+/server/.DS_Store
+/server/src/.DS_Store

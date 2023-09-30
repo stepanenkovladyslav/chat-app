@@ -1,10 +1,12 @@
 import Router from "express"
-import { UserController } from "../controllers/userController"
+import userRouter from "./userRouter"
+import chatRouter from "./chatRouter"
+import roomRouter from "./roomRouter"
 
 const app = Router()
 
-
-app.get('', UserController.getInfo)
-
+app.use('/user', userRouter)
+app.use('/chat', chatRouter)
+app.use('/room', roomRouter)
 
 export default app
