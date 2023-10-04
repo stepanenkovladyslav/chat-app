@@ -1,7 +1,7 @@
 import Router from "express"
-import userRouter from "./userRouter"
-import chatRouter from "./chatRouter"
-import roomRouter from "./roomRouter"
+import userRouter from "./user.router"
+import chatRouter from "./chat.router"
+import roomRouter from "./room.router"
 
 const app = Router()
 
