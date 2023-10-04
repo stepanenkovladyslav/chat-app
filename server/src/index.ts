@@ -3,33 +3,30 @@ require('dotenv').config()
 import express from "express"
 import router from "./routes/router"
 import { messageHandling } from "./messageHandling";
-import { MongoClient, ServerApiVersion } from "mongodb";
+import mongoose from "mongoose"
 
 
-const app = express(); 
+const app = express();
 
-const uri= process.env.DB_CONNECT;
+const PORT = process.env.PORT || 8000;
 
-const client = new MongoClient((uri as string), {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true
-  }
+const mongoUrl = process.env.DB_CONNECT;
+
+mongoose.connect(mongoUrl as string)
+
+mongoose.connection.once('open', () => {
+  console.log("MongoDB open")
 })
 
-client.connect().then(() => {
-  console.log('client connected')
-}).catch(() => {
-    console.log('connection error')
-  })
+mongoose.connection.on('error', (error: Error) => {
+  console.error(error)
+})
 
 app.use(router)
 
-const server = app.listen('8080')
+const server = app.listen(PORT)
 
-const ws = new WebSocket.Server({server})
+const ws = new WebSocket.Server({ server })
 
 ws.on('connection', messageHandling)
-
 
