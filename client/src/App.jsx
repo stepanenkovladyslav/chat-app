@@ -12,9 +12,9 @@ function App() {
     <Routes>
       <Route path="/login" element={<LoginPage/>} />
       <Route path="/register" element={<CreateAccountPage/>} />
+      <Route path="/chats" element={<AllChatsPage/>} />
       <Route path="/chat/:id" element={<ChatPage/>} />
       <Route path="/room/:id" element={<RoomPage/>} />
-      <Route path="/chats" element={<AllChatsPage/>} />
     </Routes>
   )
 }
